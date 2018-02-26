@@ -1,0 +1,65 @@
+ul.sections{
+    margin: 0;
+    display: block;
+    background: #413659;
+    height: 100%;
+    width: 80px;
+    border-right: 1px solid #2e2246;
+}
+
+ul.sections li{
+    display: block;
+    border-left: 4px solid #413659;
+    transition: all .3s linear;
+}
+
+ul.sections li a{
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    padding: 20px 4px 4px 0;
+    border-bottom: 1px solid #2e2246;
+    width: 100%;
+    height: 100%;
+    margin: 0 0 0 -4px;
+    cursor: pointer;
+}
+ul.sections li.avatar a{
+    margin: 0 auto;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border: none;
+}
+ul.sections li.avatar a div{
+    border-radius: 50%;
+    width: 30px;
+    margin: 0 auto;
+    background-color: #b3afbd;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+    line-height: 30px;
+}
+ul.sections li.avatar{
+    height: 75px;
+    padding: 22px 0 2px;
+    text-align: center;
+    margin: 0 0 0 -4px;
+    border-bottom: 1px solid #2e2246;
+}
+ul.sections li.current, ul.sections li:hover {
+    border-left: 4px solid #00aea2;
+}
+
+#container{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 80px;
+    z-index: 10;
+    margin: 0;
+}
