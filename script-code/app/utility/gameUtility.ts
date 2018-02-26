@@ -82,14 +82,16 @@ export function GameRendetText(
 }
 
 export function GetSpinNumberArray(list: number[], startIndex: number, revert: boolean = true) {
+    let listCopy = list.map(b=>b);
     if (revert) {
-        list.reverse();
+        listCopy.reverse();
     }
-    return list.slice(list.length - startIndex - 1, list.length).concat(list.slice(0,list.length - startIndex - 1));
+    return listCopy.slice(listCopy.length - startIndex - 1, listCopy.length).concat(listCopy.slice(0,listCopy.length - startIndex - 1));
 }
 export function GetNumberInFullArc(
-    currentAngle: number, spinList: number[]) {
+    currentAngle: number, spinList: number[] = [1, 0, 8, 7, 6, 5, 4, 3, 2]) {
     let oAngle = currentAngle;
+    console.log(spinList);
     if (currentAngle < 0) {
         if (currentAngle < -2 * Math.PI) {
             currentAngle = currentAngle % (2 * Math.PI);
