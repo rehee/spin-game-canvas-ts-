@@ -39,6 +39,9 @@ export class HomePage implements OnInit {
         this.config = new GameConfig();
         this.config.width = 916;
         this.config.height = 623;
+
+        this.config.deposit = 10;
+        
         this.game = new GameModel(ctx, this.config);
         this.Draw();
     }

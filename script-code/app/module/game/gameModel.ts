@@ -13,10 +13,12 @@ export class GameModel {
     private ctx: CanvasRenderingContext2D;
     private config: GameConfig;
     Background: HTMLImageElement;
+    Status: GameStatus;
+
     Chests: Chest[];
     Spin: SpinConsole;
-    Status: GameStatus;
     MainLabel: MainLabel;
+
     CheckClicked(position: I2DPosition) {
         this.Spin.CheckClicked(position);
     }
@@ -31,16 +33,25 @@ export class GameModel {
         var src = GameAssets.GetGameImageAssetPath(ImageKey.BackGround);
         this.Background.src = src;
         this.Status = new GameStatus();
+        this.Status.GameDeposit = isNaN(config.deposit) ? 10 : config.deposit;
         this.Chests = [];
+        this.CreateChest();
         this.MainLabel = new MainLabel(this.ctx, this.Status);
-        for (let i = 0; i < 9; i++) {
+        this.Spin = new SpinConsole(ctx, this.Status, this.Status.LabelText, () => this.SpinClickFunction());
+    }
+    CreateChest() {
+        let i: number = 0;
+        do {
             let multi = this.Status.MultiRange[Math.floor(Math.random() * this.Status.MultiRange.length)];
+            if (this.Status.ChestMulti.filter(b => b == multi).length >= this.Status.MaxSameMulti) {
+                continue;
+            }
             this.Status.ChestMulti.push(multi);
             this.Chests.push(
                 new Chest(
-                    i, GetChestLocation(i), multi, this.ctx));
-        }
-        this.Spin = new SpinConsole(ctx, this.Status, this.Status.LabelText, () => this.SpinClickFunction());
+                    i, GetChestLocation(i), multi, this.ctx, this.Status));
+            i++;
+        } while (i < 9)
     }
     DrawBackGround() {
         this.MainLabel.Render();

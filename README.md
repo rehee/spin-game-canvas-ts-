@@ -1,7 +1,7 @@
 this is Spin Game code  
 it's based on angular2 v 4.2.4  
 the project structure is mixed with angular cli and webpack.  
-I Suggest use webpack and http-server  
+Noticed: for now only support webpack and http-server  
 steps  
 
 1. npm install to install all packages  

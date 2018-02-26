@@ -38,6 +38,7 @@ export enum GameTextKey {
 export class GameConfig {
     width: number;
     height: number;
+    deposit: number;
 
     static GameFontFamilyMap: { [key: number]: GameFontFamily } = {
         [GameTextKey.ChestCloseText]: GameFontFamily.TitanOneRegular,

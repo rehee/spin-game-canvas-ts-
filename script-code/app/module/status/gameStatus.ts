@@ -6,7 +6,9 @@ export class GameStatus {
     BoxSelect: number[] = [];
     MultiMin: number = 15;
     MultiMax: number = 20;
+    MaxSameMulti: number = 3;
     MultiCount: number = 3;
+
     ChestMulti: number[] = [];
     GameOver: boolean = false;
     GameWin: boolean = false;
@@ -38,11 +40,10 @@ export class GameStatus {
             }
             this.MultiRange.push(thisMulti);
 
-        } while (this.MultiRange.length < this.MultiCount + 1);
+        } while (this.MultiRange.length < this.MultiCount);
 
         GetNumberInFullArc(this.DialAngle);
     }
-
     SelectBox(input: number) {
         if (this.GameOver) {
             return;

@@ -21,9 +21,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/font-awesome/css/font-awesome.css",
-        "assets/css/umbraco.css",
-        "../node_modules/ng-pick-datetime/assets/style/picker.min.css"
+        "styles.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

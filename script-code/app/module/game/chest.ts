@@ -5,13 +5,14 @@ import { ImageKey } from "./imageKey";
 import { GameConfig, GameTextKey, I2DPosition, ImageLocationAndSize } from "./gameConfig";
 import { GameRendetText, CentralResizeLocation, GetSizeByMS } from "../../utility/gameUtility";
 import { getAllLifecycleHooks } from "@angular/compiler/src/lifecycle_reflector";
+import { GameStatus } from "../status/gameStatus";
 
 export class Chest {
     private index: number;
     private ChestBg: { [key: number]: any };
     private ctx: CanvasRenderingContext2D;
     private openFlashTicks = 0;
-
+    private status: GameStatus;
     isOpen: boolean = false;
     isSpark: boolean = false;
     noTreasure: boolean = false;
@@ -40,10 +41,11 @@ export class Chest {
         );
     }
 
-    constructor(index: number, location: ChestLocation, multiple: number, ctx: CanvasRenderingContext2D) {
+    constructor(index: number, location: ChestLocation, multiple: number, ctx: CanvasRenderingContext2D, status: GameStatus) {
         this.index = index;
         this.ThisChestLocation = location;
         this.ctx = ctx;
+        this.status = status;
         this.ChestClose = new Image();
         this.ChestClose.src = GameAssets.GetGameImageAssetPath(ImageKey.SafeMini);
         this.Item = new Treasure(multiple, ctx);
@@ -56,7 +58,8 @@ export class Chest {
         this.x = 50 + (this.Widht + 30) * this.ThisChestLocation.x;
         this.y = 180 + (this.Height + 20) * this.ThisChestLocation.y;
         this.MultipleTime = multiple;
-        this.closeFontPosition = Chest.GetCloseFontPosition(this.x, this.y, this.Widht, this.Height);
+        this.closeFontPosition = Chest.GetCloseFontPosition(
+            this.x, this.y, this.Widht, this.Height);
         this.treasureLocation = new ImageLocationAndSize(
             this.x + 21, this.y + 15, this.treasureWidth, this.treasureHeight
         );
