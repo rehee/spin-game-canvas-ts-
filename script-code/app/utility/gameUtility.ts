@@ -117,3 +117,12 @@ export function pointInCircle(x, y, cx, cy, radius) {
     return distancesquared <= radius * radius;
 }
 
+export function GetDomOffset(input: HTMLElement, key: string) {
+    let offset = input[key];
+    let object: any = input.offsetParent;
+    while (object != null) {
+        offset = offset + object[key];
+        object = object.offsetParent;
+    }
+    return offset;
+}

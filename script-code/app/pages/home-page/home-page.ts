@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GameModel } from '../../module/game/gameModel';
 import { GameConfig, I2DPosition } from '../../module/game/gameConfig';
+import { GetDomOffset } from '../../utility/gameUtility';
 
 var image = require('../../../assets/img/game/coins.png');
 
@@ -14,8 +15,8 @@ export class HomePage implements OnInit {
 
     @ViewChild('myCanvas') canvasRef: ElementRef;
     SpinClick(event: MouseEvent) {
-        let x = event.offsetX;
-        let y = event.offsetY;
+        let x = event.pageX - GetDomOffset(this.canvasRef.nativeElement, 'offsetLeft');
+        let y = event.pageY - GetDomOffset(this.canvasRef.nativeElement, 'offsetTop');
         let mouseClickPosition: I2DPosition = new I2DPosition(x, y);
         this.game.CheckClicked(mouseClickPosition);
     }
@@ -28,7 +29,7 @@ export class HomePage implements OnInit {
         ctx.save(); // save ctx
 
         this.game.StartGame();
-        
+
         requestAnimationFrame(() => this.Draw());
     };
     game: GameModel;
@@ -41,7 +42,7 @@ export class HomePage implements OnInit {
         this.config.height = 623;
 
         this.config.deposit = 10;
-        
+
         this.game = new GameModel(ctx, this.config);
         this.Draw();
     }
