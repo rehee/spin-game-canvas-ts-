@@ -55,6 +55,10 @@ export class GameModel {
     }
     DrawBackGround() {
         this.MainLabel.Render();
+        this.Spin.Render();
+        this.ctx.drawImage(this.Background, 0, 0, this.config.width, this.config.height);
+    }
+    DrawAllChest() {
         this.Chests.forEach((b, i) => {
             if (b.isOpen == false) {
                 if (this.Status.BoxSelect.filter(c => c == i).length > 0) {
@@ -76,14 +80,10 @@ export class GameModel {
                 }
             }
         });
-        this.Spin.Render();
-        this.ctx.drawImage(this.Background, 0, 0, this.config.width, this.config.height);
-        this.Status.DoSpin();
-    }
-    DrawAllChest() {
         this.Chests.forEach(b => b.RenderChest());
     }
     StartGame() {
+        this.Status.CalculatePerFrame();
         this.DrawAllChest();
         this.DrawBackGround();
     }

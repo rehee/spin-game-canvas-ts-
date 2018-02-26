@@ -25,6 +25,9 @@ export class GameStatus {
     IsSpin: boolean = false;
     LastSpinFinish: number = 0;
     DialAngle: number = 0;
+
+    CurrentFrameMs: number = 0;
+    LastFrameMs: number = 0;
     GetSpinSpeed(spinForce: number) {
         if (spinForce == 0) {
             return -1;
@@ -44,6 +47,12 @@ export class GameStatus {
 
         GetNumberInFullArc(this.DialAngle);
     }
+    CalculatePerFrame() {
+        this.LastFrameMs = this.CurrentFrameMs;
+        this.CurrentFrameMs = GetFullMS();
+        this.DoSpin();
+    }
+
     SelectBox(input: number) {
         if (this.GameOver) {
             return;
@@ -100,7 +109,7 @@ export class GameStatus {
             let force = this.BackForce - this.ForceReducePerFrame;
             if (force > 0) {
                 this.BackForce = force;
-                this.DialAngle = GetSpinAngle(this.DialAngle, -this.GetSpinSpeed(this.BackForce));
+                this.DialAngle = GetSpinAngle(this.DialAngle, -this.GetSpinSpeed(this.BackForce), Math.abs(this.CurrentFrameMs - this.LastFrameMs));
             } else {
                 this.BackForce = 0;
             }
@@ -110,7 +119,7 @@ export class GameStatus {
             let force = this.ForwardForce - this.ForceReducePerFrame;
             if (force > 0) {
                 this.ForwardForce = force;
-                this.DialAngle = GetSpinAngle(this.DialAngle, this.GetSpinSpeed(this.ForwardForce));
+                this.DialAngle = GetSpinAngle(this.DialAngle, this.GetSpinSpeed(this.ForwardForce), Math.abs(this.CurrentFrameMs - this.LastFrameMs));
             } else {
                 this.ForwardForce = 0;
             }

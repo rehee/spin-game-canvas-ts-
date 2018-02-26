@@ -18,8 +18,8 @@ export function GetFullMS() {
     return performance.now();
 }
 
-export function GetSpinAngle(startAngle: number = 0, MsPerSpin: number = 1000): number {
-    let angle = startAngle + 1000 / 60 / MsPerSpin * 2 * Math.PI;
+export function GetSpinAngle(startAngle: number = 0, MsPerSpin: number = 1000, frameRenderTime: number = 1000 / 60): number {
+    let angle = startAngle + frameRenderTime / MsPerSpin * 2 * Math.PI;
     return angle;
 }
 
