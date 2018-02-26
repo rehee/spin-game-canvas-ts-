@@ -1,4 +1,4 @@
-import { GetSpinAngle, GetNumberInFullArc, GetFullMS } from "../../utility/gameUtility";
+import { GetSpinAngle, GetNumberInFullArc, GetFullMS, GetSpinNumberArray } from "../../utility/gameUtility";
 
 export class GameStatus {
     MultiRange: number[] = [];
@@ -25,7 +25,8 @@ export class GameStatus {
     IsSpin: boolean = false;
     LastSpinFinish: number = 0;
     DialAngle: number = 0;
-
+    DialNunberList: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    DialInitIndex: number = 1;
     CurrentFrameMs: number = 0;
     LastFrameMs: number = 0;
     GetSpinSpeed(spinForce: number) {
@@ -44,8 +45,6 @@ export class GameStatus {
             this.MultiRange.push(thisMulti);
 
         } while (this.MultiRange.length < this.MultiCount);
-
-        GetNumberInFullArc(this.DialAngle);
     }
     CalculatePerFrame() {
         this.LastFrameMs = this.CurrentFrameMs;
@@ -126,7 +125,7 @@ export class GameStatus {
             return;
         }
         if (this.IsSpin) {
-            let index = GetNumberInFullArc(this.DialAngle);
+            let index = GetNumberInFullArc(this.DialAngle, GetSpinNumberArray(this.DialNunberList, this.DialInitIndex, true));
             this.SelectBox(index);
             this.IsSpin = false;
             this.LastSpinFinish = GetFullMS();
