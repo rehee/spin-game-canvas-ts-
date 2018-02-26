@@ -26,7 +26,7 @@ export enum ApiCall {
 export class Config {
     static BaseUrl: string = "/api";
     static ApiUrl: { [key: number]: ApiProperty } = {
-        [ApiCall.GetMenu]: Config.setApi("/GetMenu", true, ResponseMockSet.Menu),
+        [ApiCall.GetMenu]: Config.setApi("/GetMenu", true, []),
     }
     private static setApi(url: string, useMock: boolean, m: any) {
         return new ApiProperty(url, useMock, m);
